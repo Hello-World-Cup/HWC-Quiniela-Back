@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+dist/
+*.egg-info/
+
+# Environment
+.env
+*.local
+
+# IDE
+.vscode/
+.idea/
+
+# Alembic (keep versions tracked, ignore cache)
+alembic/__pycache__/
+
+# Docker
+*.log
