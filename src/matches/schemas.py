@@ -20,6 +20,7 @@ class MatchResponse(BaseModel):
     team_a: TeamResponse
     team_b: TeamResponse
     start_time: datetime
+    prediction_deadline: datetime | None
     result_a: int | None
     result_b: int | None
     status: MatchStatus

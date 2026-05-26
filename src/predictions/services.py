@@ -15,12 +15,12 @@ class PredictionService:
     def __init__(self, db: AsyncSession) -> None:
         self.db = db
 
-    def _assert_deadline(self, match_start_time: datetime) -> None:
-        """Deadline rule: predictions are closed once the match starts."""
-        if datetime.now(UTC) >= match_start_time:
+    def _assert_deadline(self, match: Match) -> None:
+        cutoff = match.prediction_deadline if match.prediction_deadline is not None else match.start_time
+        if datetime.now(UTC) >= cutoff:
             raise HTTPException(
                 status_code=403,
-                detail="El partido ya ha comenzado o está cerrado para pronósticos",
+                detail="El periodo para realizar pronósticos ha cerrado",
             )
 
     async def upsert_prediction(self, user_id: int, data: PredictionCreate) -> Prediction:
@@ -28,7 +28,7 @@ class PredictionService:
         if not match:
             raise HTTPException(status_code=404, detail="Partido no encontrado")
 
-        self._assert_deadline(match.start_time)
+        self._assert_deadline(match)
 
         result = await self.db.execute(
             select(Prediction).where(

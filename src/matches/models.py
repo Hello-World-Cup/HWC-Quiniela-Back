@@ -30,6 +30,7 @@ class Match(Base):
     team_a_id: Mapped[int] = mapped_column(ForeignKey("teams.id"), nullable=False)
     team_b_id: Mapped[int] = mapped_column(ForeignKey("teams.id"), nullable=False)
     start_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    prediction_deadline: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     result_a: Mapped[int | None] = mapped_column(Integer, nullable=True)
     result_b: Mapped[int | None] = mapped_column(Integer, nullable=True)
     status: Mapped[MatchStatus] = mapped_column(
