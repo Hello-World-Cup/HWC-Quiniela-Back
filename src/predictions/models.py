@@ -15,6 +15,7 @@ class Prediction(Base):
     match_id: Mapped[int] = mapped_column(ForeignKey("matches.id"), nullable=False, index=True)
     predicted_score_a: Mapped[int] = mapped_column(Integer, nullable=False)
     predicted_score_b: Mapped[int] = mapped_column(Integer, nullable=False)
+    points_awarded: Mapped[int | None] = mapped_column(Integer, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(UTC)
     )

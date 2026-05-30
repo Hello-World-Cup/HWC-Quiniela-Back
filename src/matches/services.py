@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime, timezone
 
 from sqlalchemy import Date, and_, cast, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,9 +13,11 @@ class MatchService:
 
     async def get_matches(
         self,
-        filter_date: date | None = None,
+        stage: str | None = None,
+        from_date: date | None = None,
+        to_date: date | None = None,
         group: str | None = None,
-        status: MatchStatus | None = None,
+        status: str | None = None,
     ) -> list[Match]:
         query = select(Match).options(
             selectinload(Match.team_a),
@@ -23,14 +25,28 @@ class MatchService:
         )
         conditions = []
 
-        if filter_date:
-            conditions.append(cast(Match.start_time, Date) == filter_date)
+        if stage:
+            conditions.append(Match.stage == stage)
+
+        if from_date:
+            from_dt = datetime(from_date.year, from_date.month, from_date.day, tzinfo=timezone.utc)
+            conditions.append(Match.start_time >= from_dt)
+
+        if to_date:
+            to_dt = datetime(to_date.year, to_date.month, to_date.day, 23, 59, 59, tzinfo=timezone.utc)
+            conditions.append(Match.start_time <= to_dt)
 
         if group:
             conditions.append(Match.group == group.upper())
 
         if status:
-            conditions.append(Match.status == status)
+            # Accept both legacy and new status values
+            status_map = {"scheduled": ["scheduled", "pending"], "live": ["live", "in_progress"]}
+            mapped = status_map.get(status, [status])
+            if len(mapped) > 1:
+                conditions.append(Match.status.in_(mapped))
+            else:
+                conditions.append(Match.status == mapped[0])
 
         if conditions:
             query = query.where(and_(*conditions))

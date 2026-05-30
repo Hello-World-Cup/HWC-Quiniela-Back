@@ -1,0 +1,61 @@
+[
+  {"name": "United States", "code": "USA", "iso_code": "us", "group": "A", "flag_url": "https://flagcdn.com/us.svg"},
+  {"name": "Canada", "code": "CAN", "iso_code": "ca", "group": "A", "flag_url": "https://flagcdn.com/ca.svg"},
+  {"name": "Mexico", "code": "MEX", "iso_code": "mx", "group": "A", "flag_url": "https://flagcdn.com/mx.svg"},
+  {"name": "New Zealand", "code": "NZL", "iso_code": "nz", "group": "A", "flag_url": "https://flagcdn.com/nz.svg"},
+
+  {"name": "Argentina", "code": "ARG", "iso_code": "ar", "group": "B", "flag_url": "https://flagcdn.com/ar.svg"},
+  {"name": "Chile", "code": "CHI", "iso_code": "cl", "group": "B", "flag_url": "https://flagcdn.com/cl.svg"},
+  {"name": "Peru", "code": "PER", "iso_code": "pe", "group": "B", "flag_url": "https://flagcdn.com/pe.svg"},
+  {"name": "Australia", "code": "AUS", "iso_code": "au", "group": "B", "flag_url": "https://flagcdn.com/au.svg"},
+
+  {"name": "Brazil", "code": "BRA", "iso_code": "br", "group": "C", "flag_url": "https://flagcdn.com/br.svg"},
+  {"name": "Colombia", "code": "COL", "iso_code": "co", "group": "C", "flag_url": "https://flagcdn.com/co.svg"},
+  {"name": "Venezuela", "code": "VEN", "iso_code": "ve", "group": "C", "flag_url": "https://flagcdn.com/ve.svg"},
+  {"name": "Cameroon", "code": "CMR", "iso_code": "cm", "group": "C", "flag_url": "https://flagcdn.com/cm.svg"},
+
+  {"name": "Germany", "code": "GER", "iso_code": "de", "group": "D", "flag_url": "https://flagcdn.com/de.svg"},
+  {"name": "Austria", "code": "AUT", "iso_code": "at", "group": "D", "flag_url": "https://flagcdn.com/at.svg"},
+  {"name": "Scotland", "code": "SCO", "iso_code": "gb-sct", "group": "D", "flag_url": "https://flagcdn.com/gb-sct.svg"},
+  {"name": "Senegal", "code": "SEN", "iso_code": "sn", "group": "D", "flag_url": "https://flagcdn.com/sn.svg"},
+
+  {"name": "France", "code": "FRA", "iso_code": "fr", "group": "E", "flag_url": "https://flagcdn.com/fr.svg"},
+  {"name": "Belgium", "code": "BEL", "iso_code": "be", "group": "E", "flag_url": "https://flagcdn.com/be.svg"},
+  {"name": "Ukraine", "code": "UKR", "iso_code": "ua", "group": "E", "flag_url": "https://flagcdn.com/ua.svg"},
+  {"name": "Paraguay", "code": "PAR", "iso_code": "py", "group": "E", "flag_url": "https://flagcdn.com/py.svg"},
+
+  {"name": "Spain", "code": "ESP", "iso_code": "es", "group": "F", "flag_url": "https://flagcdn.com/es.svg"},
+  {"name": "Portugal", "code": "POR", "iso_code": "pt", "group": "F", "flag_url": "https://flagcdn.com/pt.svg"},
+  {"name": "Turkey", "code": "TUR", "iso_code": "tr", "group": "F", "flag_url": "https://flagcdn.com/tr.svg"},
+  {"name": "Uzbekistan", "code": "UZB", "iso_code": "uz", "group": "F", "flag_url": "https://flagcdn.com/uz.svg"},
+
+  {"name": "England", "code": "ENG", "iso_code": "gb-eng", "group": "G", "flag_url": "https://flagcdn.com/gb-eng.svg"},
+  {"name": "Netherlands", "code": "NED", "iso_code": "nl", "group": "G", "flag_url": "https://flagcdn.com/nl.svg"},
+  {"name": "Switzerland", "code": "SUI", "iso_code": "ch", "group": "G", "flag_url": "https://flagcdn.com/ch.svg"},
+  {"name": "Nigeria", "code": "NGA", "iso_code": "ng", "group": "G", "flag_url": "https://flagcdn.com/ng.svg"},
+
+  {"name": "Morocco", "code": "MAR", "iso_code": "ma", "group": "H", "flag_url": "https://flagcdn.com/ma.svg"},
+  {"name": "Croatia", "code": "CRO", "iso_code": "hr", "group": "H", "flag_url": "https://flagcdn.com/hr.svg"},
+  {"name": "Egypt", "code": "EGY", "iso_code": "eg", "group": "H", "flag_url": "https://flagcdn.com/eg.svg"},
+  {"name": "Tanzania", "code": "TAN", "iso_code": "tz", "group": "H", "flag_url": "https://flagcdn.com/tz.svg"},
+
+  {"name": "Japan", "code": "JPN", "iso_code": "jp", "group": "I", "flag_url": "https://flagcdn.com/jp.svg"},
+  {"name": "South Korea", "code": "KOR", "iso_code": "kr", "group": "I", "flag_url": "https://flagcdn.com/kr.svg"},
+  {"name": "Saudi Arabia", "code": "KSA", "iso_code": "sa", "group": "I", "flag_url": "https://flagcdn.com/sa.svg"},
+  {"name": "Ecuador", "code": "ECU", "iso_code": "ec", "group": "I", "flag_url": "https://flagcdn.com/ec.svg"},
+
+  {"name": "Iran", "code": "IRN", "iso_code": "ir", "group": "J", "flag_url": "https://flagcdn.com/ir.svg"},
+  {"name": "Iraq", "code": "IRQ", "iso_code": "iq", "group": "J", "flag_url": "https://flagcdn.com/iq.svg"},
+  {"name": "Uruguay", "code": "URU", "iso_code": "uy", "group": "J", "flag_url": "https://flagcdn.com/uy.svg"},
+  {"name": "Ivory Coast", "code": "CIV", "iso_code": "ci", "group": "J", "flag_url": "https://flagcdn.com/ci.svg"},
+
+  {"name": "Serbia", "code": "SRB", "iso_code": "rs", "group": "K", "flag_url": "https://flagcdn.com/rs.svg"},
+  {"name": "Denmark", "code": "DEN", "iso_code": "dk", "group": "K", "flag_url": "https://flagcdn.com/dk.svg"},
+  {"name": "Slovenia", "code": "SVN", "iso_code": "si", "group": "K", "flag_url": "https://flagcdn.com/si.svg"},
+  {"name": "DR Congo", "code": "COD", "iso_code": "cd", "group": "K", "flag_url": "https://flagcdn.com/cd.svg"},
+
+  {"name": "Romania", "code": "ROU", "iso_code": "ro", "group": "L", "flag_url": "https://flagcdn.com/ro.svg"},
+  {"name": "Poland", "code": "POL", "iso_code": "pl", "group": "L", "flag_url": "https://flagcdn.com/pl.svg"},
+  {"name": "Hungary", "code": "HUN", "iso_code": "hu", "group": "L", "flag_url": "https://flagcdn.com/hu.svg"},
+  {"name": "Ghana", "code": "GHA", "iso_code": "gh", "group": "L", "flag_url": "https://flagcdn.com/gh.svg"}
+]

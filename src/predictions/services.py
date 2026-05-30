@@ -24,7 +24,8 @@ class PredictionService:
             )
 
     async def upsert_prediction(self, user_id: int, data: PredictionCreate) -> Prediction:
-        match = await MatchService(self.db).get_match_by_id(data.match_id)
+        match_id = int(data.match_id)
+        match = await MatchService(self.db).get_match_by_id(match_id)
         if not match:
             raise HTTPException(status_code=404, detail="Partido no encontrado")
 
@@ -33,21 +34,21 @@ class PredictionService:
         result = await self.db.execute(
             select(Prediction).where(
                 Prediction.user_id == user_id,
-                Prediction.match_id == data.match_id,
+                Prediction.match_id == match_id,
             )
         )
         prediction = result.scalar_one_or_none()
 
         if prediction:
-            prediction.predicted_score_a = data.predicted_score_a
-            prediction.predicted_score_b = data.predicted_score_b
+            prediction.predicted_score_a = data.home
+            prediction.predicted_score_b = data.away
             prediction.updated_at = datetime.now(UTC)
         else:
             prediction = Prediction(
                 user_id=user_id,
-                match_id=data.match_id,
-                predicted_score_a=data.predicted_score_a,
-                predicted_score_b=data.predicted_score_b,
+                match_id=match_id,
+                predicted_score_a=data.home,
+                predicted_score_b=data.away,
             )
             self.db.add(prediction)
 

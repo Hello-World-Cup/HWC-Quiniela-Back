@@ -24,14 +24,24 @@ class AuthService:
         google_id: str = google_info["sub"]
         email: str = google_info["email"]
         full_name: str = google_info.get("name", email)
+        avatar_url: str | None = google_info.get("picture")
 
         result = await self.db.execute(select(User).where(User.google_id == google_id))
         user = result.scalar_one_or_none()
 
         if not user:
-            user = User(google_id=google_id, email=email, full_name=full_name)
+            user = User(
+                google_id=google_id,
+                email=email,
+                full_name=full_name,
+                avatar_url=avatar_url,
+            )
             self.db.add(user)
-            await self.db.commit()
-            await self.db.refresh(user)
+        else:
+            # Keep avatar in sync on every login
+            if avatar_url and user.avatar_url != avatar_url:
+                user.avatar_url = avatar_url
 
+        await self.db.commit()
+        await self.db.refresh(user)
         return user
