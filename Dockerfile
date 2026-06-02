@@ -32,4 +32,4 @@ ENV PYTHONUNBUFFERED=1
 EXPOSE 8080
 
 # Use absolute paths — no PATH dependency, no shell resolution issues
-CMD ["/bin/sh", "-c", "/app/.venv/bin/alembic upgrade head && /app/.venv/bin/uvicorn src.main:app --host 0.0.0.0 --port 8080 --workers 1"]
+CMD ["/bin/sh", "-c", "/app/.venv/bin/alembic upgrade head && /app/.venv/bin/python -m src.scripts.seed_teams && /app/.venv/bin/python -m src.scripts.seed_matches && /app/.venv/bin/uvicorn src.main:app --host 0.0.0.0 --port 8080 --workers 1"]

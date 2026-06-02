@@ -1,6 +1,8 @@
 """Seed script: load World Cup 2026 match schedule into the database.
 
 Run seed_teams.py first so team codes exist.
+Idempotent: skips matches that already exist (group stage by start_time,
+knockout stage by fifa_number).
 
 Usage:
     uv run python -m src.scripts.seed_matches
@@ -8,7 +10,7 @@ Usage:
 
 import asyncio
 import json
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 
 from sqlalchemy import select
@@ -27,34 +29,45 @@ async def seed_matches() -> None:
     data = json.loads(FIXTURE_PATH.read_text())
 
     async with AsyncSessionLocal() as db:
-        # Pre-load team code → id map
         result = await db.execute(select(Team.id, Team.code))
         code_to_id: dict[str, int] = {row.code: row.id for row in result.all()}
 
-        created = 0
+        created = skipped = 0
 
         for item in data.get("group_stage", []):
             team_a_id = code_to_id.get(item["team_a"])
             team_b_id = code_to_id.get(item["team_b"])
             if not team_a_id or not team_b_id:
-                print(f"WARNING: team code not found for match {item['team_a']} vs {item['team_b']}, skipping")
+                print(f"WARNING: team code not found for {item['team_a']} vs {item['team_b']}, skipping")
                 continue
 
-            match = Match(
+            start_time = parse_dt(item["start_time"])
+            existing = await db.execute(select(Match).where(Match.start_time == start_time))
+            if existing.scalars().first():
+                skipped += 1
+                continue
+
+            db.add(Match(
                 team_a_id=team_a_id,
                 team_b_id=team_b_id,
-                start_time=parse_dt(item["start_time"]),
+                start_time=start_time,
                 status=MatchStatus.scheduled,
                 venue=item.get("venue"),
                 group=item.get("group"),
                 stage=item.get("stage"),
                 round=item.get("stage", "").replace("-", " ").title(),
-            )
-            db.add(match)
+            ))
             created += 1
 
         for item in data.get("knockout_stage", []):
-            match = Match(
+            fifa_number = item.get("fifa_number")
+            if fifa_number is not None:
+                existing = await db.execute(select(Match).where(Match.fifa_number == fifa_number))
+                if existing.scalars().first():
+                    skipped += 1
+                    continue
+
+            db.add(Match(
                 team_a_id=None,
                 team_b_id=None,
                 start_time=parse_dt(item["start_time"]),
@@ -62,14 +75,13 @@ async def seed_matches() -> None:
                 venue=item.get("venue"),
                 stage=item.get("stage"),
                 match_label=item.get("match_label"),
-                fifa_number=item.get("fifa_number"),
+                fifa_number=fifa_number,
                 round=item.get("stage", "").replace("-", " ").title(),
-            )
-            db.add(match)
+            ))
             created += 1
 
         await db.commit()
-        print(f"Seeded {created} matches successfully.")
+        print(f"Seeded {created} matches ({skipped} already existed).")
 
 
 if __name__ == "__main__":
