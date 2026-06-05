@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,6 +8,8 @@ from src.auth.routers import router as auth_router
 from src.leaderboard.routers import router as leaderboard_router
 from src.matches.routers import router as matches_router
 from src.predictions.routers import router as predictions_router
+from src.sync.routers import router as sync_router
+from src.sync.scheduler import start_scheduler, stop_scheduler
 from src.teams.routers import router as teams_router
 from src.users.routers import router as users_router
 
@@ -66,6 +70,13 @@ TAGS_METADATA = [
     },
 ]
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    start_scheduler()
+    yield
+    stop_scheduler()
+
+
 app = FastAPI(
     title="HWC Quiniela API",
     description=DESCRIPTION,
@@ -80,6 +91,7 @@ app = FastAPI(
     },
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -97,6 +109,7 @@ app.include_router(teams_router)
 app.include_router(leaderboard_router)
 app.include_router(users_router)
 app.include_router(admin_router)
+app.include_router(sync_router)
 
 
 @app.get("/health", tags=["health"], summary="Health check")

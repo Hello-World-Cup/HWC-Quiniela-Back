@@ -19,6 +19,10 @@ class Settings(BaseSettings):
     google_client_id: str = ""
     google_client_secret: str = ""
 
+    api_football_key: str = ""
+    sync_cron_hour: int = 2
+    sync_cron_minute: int = 0
+
     @property
     def database_url(self) -> DbURL:
         return DbURL.create(

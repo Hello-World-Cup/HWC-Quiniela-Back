@@ -56,6 +56,7 @@ class Match(Base):
     stage: Mapped[str | None] = mapped_column(String(20), nullable=True)
     match_label: Mapped[str | None] = mapped_column(String(100), nullable=True)
     fifa_number: Mapped[int | None] = mapped_column(Integer, nullable=True, unique=True, index=True)
+    api_football_id: Mapped[int | None] = mapped_column(Integer, nullable=True, unique=True, index=True)
 
     team_a: Mapped["Team | None"] = relationship("Team", foreign_keys=[team_a_id])
     team_b: Mapped["Team | None"] = relationship("Team", foreign_keys=[team_b_id])
